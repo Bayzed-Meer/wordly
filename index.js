@@ -12,6 +12,7 @@ class WordleGame {
     async play() {
         this.displayWelcomeScreen();
         await this.confirmReady();
+        await this.showLoadingAnimation();
     }
 
     displayWelcomeScreen() {
@@ -79,6 +80,17 @@ class WordleGame {
             console.log(chalk.yellow('\n\nGame cancelled. See you next time!\n'));
             throw error;
         }
+    }
+
+    async showLoadingAnimation() {
+        const spinner = ora({
+            text: 'Selecting a word...',
+            spinner: 'dots'
+        }).start();
+
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        spinner.succeed('Word selected! Good luck!');
+        await new Promise(resolve => setTimeout(resolve, 500));
     }
 }
 
