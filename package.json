@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "description": "A modern CLI wordle game",
   "type": "module",
-  "main": "index.js",
+  "main": "src/index.js",
   "bin": {
-    "wordle": "./index.js"
+    "wordle": "./src/index.js"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
   "keywords": [
     "wordle",
