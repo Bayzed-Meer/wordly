@@ -7,23 +7,53 @@ import ora from 'ora';
 import figlet from 'figlet';
 import gradient from 'gradient-string';
 
-const wordList = [
-    'APPLE', 'BADGE', 'CABIN', 'DANCE', 'EAGLE', 'FAITH', 'GRACE', 'HAPPY', 'IMAGE', 'JOKER',
-    'KNIFE', 'LEMON', 'MAGIC', 'NOBLE', 'OCEAN', 'PEACE', 'QUEEN', 'RIVER', 'STONE', 'TIGER',
-    'UNITY', 'VOICE', 'WHALE', 'XENON', 'YOUTH', 'ZEBRA', 'BEACH', 'CHARM', 'DREAM', 'FLAME',
-    'GLOBE', 'HEART', 'IVORY', 'JEWEL', 'KARMA', 'LIGHT', 'MEDAL', 'NEXUS', 'OASIS', 'PEARL',
-    'QUEST', 'ROYAL', 'SMILE', 'TRUST', 'URBAN', 'VITAL', 'WIELD', 'YIELD', 'ZONAL', 'AGILE',
-    'BRAVE', 'CRAFT', 'DRIFT', 'EARTH', 'FROST', 'GIANT', 'HAVEN', 'INPUT', 'JOLLY', 'KNACK',
-    'BLAZE', 'CRISP', 'DENSE', 'EMPTY', 'FRUIT', 'GRAND', 'HONOR', 'IDEAL', 'JOINT', 'LOCAL',
-    'MINOR', 'NORTH', 'OUTER', 'PRIDE', 'QUICK', 'ROUND', 'SHARP', 'THICK', 'UNITY', 'VITAL'
-];
+const wordList = {
+    4: [
+        'ABLE', 'ACID', 'AGED', 'ALSO', 'AREA', 'ARMY', 'AWAY', 'BABY', 'BACK', 'BALL',
+        'BAND', 'BANK', 'BASE', 'BATH', 'BEAR', 'BEAT', 'BEEN', 'BEER', 'BELL', 'BELT',
+        'BEST', 'BILL', 'BIRD', 'BLOW', 'BLUE', 'BOAT', 'BODY', 'BOMB', 'BOND', 'BONE',
+        'BOOK', 'BOOM', 'BORN', 'BOSS', 'BOTH', 'BOWL', 'BULK', 'BURN', 'BUSH', 'BUSY',
+        'CALL', 'CALM', 'CAME', 'CAMP', 'CARD', 'CARE', 'CASE', 'CASH', 'CAST', 'CELL',
+        'CHAT', 'CHIP', 'CITY', 'CLUB', 'COAL', 'COAT', 'CODE', 'COLD', 'COME', 'COOK',
+        'COOL', 'COPE', 'COPY', 'CORE', 'COST', 'CREW', 'CROP', 'DARK', 'DATA', 'DATE',
+        'DAWN', 'DAYS', 'DEAD', 'DEAL', 'DEAN', 'DEAR', 'DEBT', 'DEEP', 'DENY', 'DESK'
+    ],
+    5: [
+        'APPLE', 'BADGE', 'CABIN', 'DANCE', 'EAGLE', 'FAITH', 'GRACE', 'HAPPY', 'IMAGE', 'JOKER',
+        'KNIFE', 'LEMON', 'MAGIC', 'NOBLE', 'OCEAN', 'PEACE', 'QUEEN', 'RIVER', 'STONE', 'TIGER',
+        'UNITY', 'VOICE', 'WHALE', 'XENON', 'YOUTH', 'ZEBRA', 'BEACH', 'CHARM', 'DREAM', 'FLAME',
+        'GLOBE', 'HEART', 'IVORY', 'JEWEL', 'KARMA', 'LIGHT', 'MEDAL', 'NEXUS', 'OASIS', 'PEARL',
+        'QUEST', 'ROYAL', 'SMILE', 'TRUST', 'URBAN', 'VITAL', 'WIELD', 'YIELD', 'ZONAL', 'AGILE',
+        'BRAVE', 'CRAFT', 'DRIFT', 'EARTH', 'FROST', 'GIANT', 'HAVEN', 'INPUT', 'JOLLY', 'KNACK',
+        'BLAZE', 'CRISP', 'DENSE', 'EMPTY', 'FRUIT', 'GRAND', 'HONOR', 'IDEAL', 'JOINT', 'LOCAL',
+        'MINOR', 'NORTH', 'OUTER', 'PRIDE', 'QUICK', 'ROUND', 'SHARP', 'THICK', 'TRADE', 'TRAIN'
+    ],
+    6: [
+        'ACCEPT', 'ACCESS', 'ACROSS', 'ACTION', 'ACTIVE', 'ACTUAL', 'ADVICE', 'ADVISE', 'AFFECT', 'AFFORD',
+        'AGENCY', 'AGENDA', 'ALMOST', 'ALWAYS', 'AMOUNT', 'ANIMAL', 'ANNUAL', 'ANSWER', 'ANYONE', 'ANYWAY',
+        'APPEAL', 'APPEAR', 'AROUND', 'ARRIVE', 'ARTIST', 'ASPECT', 'ASSESS', 'ASSIST', 'ASSUME', 'ATTACH',
+        'ATTACK', 'ATTEMPT', 'ATTEND', 'AUTHOR', 'AUTUMN', 'AVENUE', 'BACKED', 'BACKUP', 'BALLET', 'BANKER',
+        'BATTLE', 'BEAUTY', 'BEFORE', 'BEHALF', 'BEHAVE', 'BEHIND', 'BELIEF', 'BELONG', 'BENEFIT', 'BESIDE',
+        'BETTER', 'BEYOND', 'BISHOP', 'BORDER', 'BOTTLE', 'BOTTOM', 'BOUGHT', 'BRANCH', 'BREAST', 'BREATH',
+        'BRIDGE', 'BRIGHT', 'BROKEN', 'BUDGET', 'BURDEN', 'BUREAU', 'BUTTON', 'CAMERA', 'CANCEL', 'CANCER'
+    ],
+    7: [
+        'ABILITY', 'ABSENCE', 'ACADEMY', 'ACCOUNT', 'ACCUSED', 'ACHIEVE', 'ACQUIRE', 'ADDRESS', 'ADVANCE', 'ADVERSE',
+        'ADVISED', 'ADVISER', 'ADVOCATE', 'AGAINST', 'AIRCRAFT', 'AIRPORT', 'ALCOHOL', 'ALLIANCE', 'ALREADY', 'ANALYSIS',
+        'ANCIENT', 'ANOTHER', 'ANXIOUS', 'ANYWHERE', 'APPARENT', 'APPLIED', 'APPOINT', 'APPROACH', 'APPROVE', 'ARRANGE',
+        'ARTICLE', 'ASSEMBLY', 'ATTEMPT', 'ATTRACT', 'AUCTION', 'AVERAGE', 'BALANCE', 'BANKING', 'BARRIER', 'BATTERY',
+        'BEARING', 'BECAUSE', 'BEDROOM', 'BENEFIT', 'BENEATH', 'BESIDES', 'BETWEEN', 'BINDING', 'BIOLOGY', 'BLANKET',
+        'BROTHER', 'BROUGHT', 'BUILDER', 'BURNING', 'CABINET', 'CALIBER', 'CAPABLE', 'CAPITAL', 'CAPTAIN', 'CAPTURE',
+        'CAREFUL', 'CARRIER', 'CATALOG', 'CEILING', 'CENTRAL', 'CENTURY', 'CERTAIN', 'CHAMBER', 'CHANNEL', 'CHAPTER'
+    ]
+};
 
 class WordleGame {
 
     constructor() {
         this.wordLength = 5;
         this.maxAttempts = 6;
-        this.word = this.selectRandomWord();
+        this.word = null;
         this.attempts = [];
         this.gameOver = false;
         this.won = false;
@@ -35,6 +65,7 @@ class WordleGame {
         await this.confirmReady();
         await this.getPlayerModeChoice();
         await this.initGameSettings();
+        this.selectRandomWord();
         await this.showLoadingAnimation();
         this.displayBoard();
         await this.runGameLoop();
@@ -66,13 +97,12 @@ class WordleGame {
         console.log(
             boxen(
                 chalk.white.bold('Welcome to Wordle!\n\n') +
-                chalk.gray('Guess the 5-letter word in 6 attempts.\n') +
-                chalk.gray('Each guess must be a valid 5-letter word.'),
+                chalk.cyan('The classic word guessing game\n\n'),
                 {
                     padding: 1,
                     margin: 1,
-                    borderStyle: 'double',
-                    borderColor: 'green'
+                    borderStyle: 'round',
+                    borderColor: 'cyan'
                 }
             )
         );
@@ -96,7 +126,7 @@ class WordleGame {
                 {
                     type: 'input',
                     name: 'ready',
-                    message: '🚀  Ready to play? (y/n)',
+                    message: chalk.cyan('🚀  Ready to play? (y/n)'),
                     validate(input) {
                         const val = input.trim().toLowerCase();
                         if (['y', 'yes', 'n', 'no'].includes(val)) return true;
@@ -130,7 +160,8 @@ class WordleGame {
     }
 
     selectRandomWord() {
-        return wordList[Math.floor(Math.random() * wordList.length)];
+        const availableWords = wordList[this.wordLength];
+        this.word = availableWords[Math.floor(Math.random() * availableWords.length)];
     }
 
     displayBoard() {
@@ -185,11 +216,11 @@ class WordleGame {
                 {
                     type: 'input',
                     name: 'guess',
-                    message: '💭  Enter your guess:',
+                    message: chalk.cyan('💭  Enter your guess:'),
                     validate: (input) => {
                         const upperInput = input.trim().toUpperCase();
 
-                        if (upperInput.length !== 5) return 'Guess must be exactly 5 letters';
+                        if (upperInput.length !== this.wordLength) return `Guess must be exactly ${this.wordLength} letters`;
                         if (!/^[A-Z]+$/.test(upperInput)) return 'Only letters allowed';
 
                         return true;
@@ -223,7 +254,7 @@ class WordleGame {
         const result = [];
         const wordArray = this.word.split('');
         const guessArray = guess.split('');
-        const used = new Array(5).fill(false);
+        const used = new Array(this.wordLength).fill(false);
 
         this.markCorrectPositions(result, guessArray, wordArray, used);
         this.markPresentLetters(result, guessArray, wordArray, used);
@@ -232,7 +263,7 @@ class WordleGame {
     }
 
     markCorrectPositions(result, guessArray, wordArray, used) {
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < this.wordLength; i++) {
             if (guessArray[i] === wordArray[i]) {
                 result[i] = 'correct';
                 used[i] = true;
@@ -241,7 +272,7 @@ class WordleGame {
     }
 
     markPresentLetters(result, guessArray, wordArray, used) {
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < this.wordLength; i++) {
             if (result[i] !== 'correct') {
                 const foundIndex = this.findUnusedLetter(guessArray[i], wordArray, used);
                 if (foundIndex === -1) {
@@ -255,7 +286,7 @@ class WordleGame {
     }
 
     findUnusedLetter(letter, wordArray, used) {
-        for (let j = 0; j < 5; j++) {
+        for (let j = 0; j < this.wordLength; j++) {
             if (!used[j] && letter === wordArray[j]) {
                 return j;
             }
@@ -290,7 +321,7 @@ class WordleGame {
             boxen(
                 gradient(['red', 'orange', 'yellow', 'green', 'blue', 'purple'])(figlet.textSync('YOU WON!', { font: 'Standard' })) +
                 '\n\n' +
-                chalk.green.bold(`🎉  Congratulations! You guessed it in ${this.attempts.length} ${this.attempts.length === 1 ? 'attempt' : 'attempts'}!`),
+                chalk.green.bold(`Congratulations! You guessed it in ${this.attempts.length} ${this.attempts.length === 1 ? 'attempt' : 'attempts'}!`),
                 {
                     padding: 1,
                     margin: 1,
@@ -304,9 +335,9 @@ class WordleGame {
     displayLossMessage() {
         console.log(
             boxen(
-                chalk.red.bold('💔  GAME OVER\n\n') +
+                chalk.red.bold('GAME OVER\n\n') +
                 chalk.yellow(`The word was: ${chalk.bold(this.word)}\n`) +
-                chalk.gray('🔄  Better luck next time!'),
+                chalk.gray('Better luck next time!'),
                 {
                     padding: 1,
                     margin: 1,
@@ -323,7 +354,7 @@ class WordleGame {
                 {
                     type: 'confirm',
                     name: 'playAgain',
-                    message: 'Would you like to play again?',
+                    message: chalk.cyan('Would you like to play again?'),
                     default: true
                 }
             ]);
@@ -344,8 +375,8 @@ class WordleGame {
     displayGoodbyeMessage() {
         console.log(
             boxen(
-                chalk.cyan.bold('👋  Thanks for playing Wordle!\n') +
-                chalk.gray('🌟  Come back soon!'),
+                chalk.cyan.bold('Thanks for playing Wordle!\n') +
+                chalk.gray('Come back soon!'),
                 {
                     padding: 1,
                     margin: 1,
@@ -362,7 +393,7 @@ class WordleGame {
                 {
                     type: 'list',
                     name: 'mode',
-                    message: 'Choose your game mode:',
+                    message: chalk.cyan('Choose your game mode:'),
                     choices: [
                         {
                             name: chalk.green('Default') + chalk.gray(' (5 letters, 6 attempts)'),
@@ -395,7 +426,7 @@ class WordleGame {
                 {
                     type: 'input',
                     name: 'wordLength',
-                    message: chalk.bold.cyan('Enter word length (4-7):'),
+                    message: chalk.cyan('Enter word length (4-7):'),
                     validate(input) {
                         const num = Number.parseInt(input);
 
@@ -414,7 +445,7 @@ class WordleGame {
                 {
                     type: 'input',
                     name: 'maxAttempts',
-                    message: chalk.bold.cyan('Enter maximum attempts:'),
+                    message: chalk.cyan('Enter maximum attempts:'),
                     validate(input) {
                         const num = Number.parseInt(input);
 
