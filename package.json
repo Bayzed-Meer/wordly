@@ -1,0 +1,28 @@
+{
+  "name": "wordly",
+  "version": "0.0.0",
+  "description": "A modern CLI wordly game",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "wordly": "./index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "wordly",
+    "cli",
+    "game"
+  ],
+  "private": false,
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/github": "^12.0.2",
+    "@semantic-release/npm": "^13.1.3",
+    "@semantic-release/release-notes-generator": "^14.1.0",
+    "semantic-release": "^25.0.2"
+  }
+}
