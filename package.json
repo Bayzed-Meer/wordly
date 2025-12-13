@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "description": "A modern CLI wordle game",
   "type": "module",
-  "main": "index.js",
+  "main": "src/index.js",
   "bin": {
-    "wordle": "./index.js"
+    "wordle": "./src/index.js"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node src/index.js"
   },
   "keywords": [
     "wordle",
@@ -30,7 +30,7 @@
     "chalk": "^5.6.2",
     "figlet": "^1.9.4",
     "gradient-string": "^3.0.0",
-    "inquirer": "^13.0.2",
+    "inquirer": "^12.11.1",
     "ora": "^9.0.0"
   }
 }
