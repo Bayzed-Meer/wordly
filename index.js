@@ -21,6 +21,7 @@ const wordList = [
 class WordleGame {
 
     constructor() {
+        this.wordLength = 5;
         this.maxAttempts = 6;
         this.word = this.selectRandomWord();
         this.attempts = [];
@@ -33,6 +34,7 @@ class WordleGame {
         this.displayWelcomeScreen();
         await this.confirmReady();
         await this.getPlayerModeChoice();
+        await this.initGameSettings();
         await this.showLoadingAnimation();
         this.displayBoard();
         await this.runGameLoop();
@@ -143,22 +145,20 @@ class WordleGame {
             )
         );
 
-        console.log(chalk.dim('─'.repeat(50)) + '\n');
+        console.log(chalk.dim('─'.repeat(this.wordLength * 10)) + '\n');
 
         for (let i = 0; i < this.maxAttempts; i++) {
             if (i < this.attempts.length) {
                 const { guess, result } = this.attempts[i];
                 console.log('  ' + this.formatGuess(guess, result));
             } else {
-                const empty = chalk.gray('[ _ ]') + ' ' + chalk.gray('[ _ ]') + ' ' +
-                    chalk.gray('[ _ ]') + ' ' + chalk.gray('[ _ ]') + ' ' +
-                    chalk.gray('[ _ ]');
+                const empty = (chalk.gray('[ _ ]') + ' ').repeat(this.wordLength).trim();
                 console.log('  ' + empty);
             }
             console.log();
         }
 
-        console.log(chalk.dim('─'.repeat(50)));
+        console.log(chalk.dim('─'.repeat(this.wordLength * 10)));
         console.log(chalk.cyan(`  📊  Attempts: ${this.attempts.length}/${this.maxAttempts}`));
         console.log();
     }
@@ -362,7 +362,7 @@ class WordleGame {
                 {
                     type: 'list',
                     name: 'mode',
-                    message: chalk.bold.cyan('Choose your game mode:'),
+                    message: 'Choose your game mode:',
                     choices: [
                         {
                             name: chalk.green('Default') + chalk.gray(' (5 letters, 6 attempts)'),
@@ -374,11 +374,64 @@ class WordleGame {
                         }
                     ],
                     default: 'default',
-                    pageSize: 10
+                    pageSize: 2
                 }
             ]);
 
-            return mode;
+            this.mode = mode;
+        } catch (error) {
+            console.log(chalk.yellow('\n\n👋  Game cancelled. See you next time!\n'));
+            throw error;
+        }
+    }
+
+    async initGameSettings() {
+        if (this.mode === 'default') {
+            return;
+        }
+
+        try {
+            const responses = await inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'wordLength',
+                    message: chalk.bold.cyan('Enter word length (4-7):'),
+                    validate(input) {
+                        const num = Number.parseInt(input);
+
+                        if (Number.isNaN(num)) {
+                            return chalk.red('Please enter a valid number');
+                        }
+                        if (num < 4 || num > 7) {
+                            return chalk.red('Word length must be between 4 and 7');
+                        }
+                        return true;
+                    },
+                    filter(input) {
+                        return Number.parseInt(input);
+                    }
+                },
+                {
+                    type: 'input',
+                    name: 'maxAttempts',
+                    message: chalk.bold.cyan('Enter maximum attempts:'),
+                    validate(input) {
+                        const num = Number.parseInt(input);
+
+                        if (Number.isNaN(num)) {
+                            return chalk.red('Please enter a valid number');
+                        }
+
+                        return true;
+                    },
+                    filter(input) {
+                        return Number.parseInt(input);
+                    }
+                }
+            ]);
+
+            this.wordLength = responses.wordLength;
+            this.maxAttempts = responses.maxAttempts;
 
         } catch (error) {
             console.log(chalk.yellow('\n\n👋  Game cancelled. See you next time!\n'));
