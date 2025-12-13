@@ -21,18 +21,18 @@ const wordList = [
 class WordleGame {
 
     constructor() {
-        this.wordLength = 5;
         this.maxAttempts = 6;
         this.word = this.selectRandomWord();
         this.attempts = [];
         this.gameOver = false;
         this.won = false;
-        this.guessedLetters = new Set();
+        this.mode = 'default';
     }
 
     async play() {
         this.displayWelcomeScreen();
         await this.confirmReady();
+        await this.getPlayerModeChoice();
         await this.showLoadingAnimation();
         this.displayBoard();
         await this.runGameLoop();
@@ -76,9 +76,9 @@ class WordleGame {
         );
 
         const legend =
-            chalk.black.bgGreen(' X ') + chalk.gray(' = Correct position  ') +
-            chalk.black.bgYellow(' X ') + chalk.gray(' = Wrong position  ') +
-            chalk.white.bgGray(' X ') + chalk.gray(' = Not in word');
+            chalk.black.bgGreen(' X ') + chalk.gray(' = Correct position ') +
+            chalk.black.bgYellow(' X ') + chalk.gray(' = Wrong position ') +
+            chalk.white.bgGray(' X ') + chalk.gray(' = Not in word ');
 
         console.log(boxen(legend, {
             padding: 1,
@@ -94,7 +94,7 @@ class WordleGame {
                 {
                     type: 'input',
                     name: 'ready',
-                    message: 'Ready to play? (y/n)',
+                    message: '🚀  Ready to play? (y/n)',
                     validate(input) {
                         const val = input.trim().toLowerCase();
                         if (['y', 'yes', 'n', 'no'].includes(val)) return true;
@@ -106,24 +106,24 @@ class WordleGame {
             const isReady = ['y', 'yes'].includes(ready.trim().toLowerCase());
 
             if (!isReady) {
-                console.log(chalk.yellow('\nMaybe next time!\n'));
+                console.log(chalk.yellow('\n👋  Maybe next time!\n'));
                 process.exit(0);
             }
 
         } catch (error) {
-            console.log(chalk.yellow('\n\nGame cancelled. See you next time!\n'));
+            console.log(chalk.yellow('\n\n👋  Game cancelled. See you next time!\n'));
             throw error;
         }
     }
 
     async showLoadingAnimation() {
         const spinner = ora({
-            text: 'Selecting a word...',
+            text: '🎲  Selecting a word...',
             spinner: 'dots'
         }).start();
 
         await new Promise(resolve => setTimeout(resolve, 1000));
-        spinner.succeed('Word selected! Good luck!');
+        spinner.succeed('✨  Word selected! Good luck!');
         await new Promise(resolve => setTimeout(resolve, 500));
     }
 
@@ -159,7 +159,7 @@ class WordleGame {
         }
 
         console.log(chalk.dim('─'.repeat(50)));
-        console.log(chalk.cyan(`  Attempts: ${this.attempts.length}/${this.maxAttempts}`));
+        console.log(chalk.cyan(`  📊  Attempts: ${this.attempts.length}/${this.maxAttempts}`));
         console.log();
     }
 
@@ -185,7 +185,7 @@ class WordleGame {
                 {
                     type: 'input',
                     name: 'guess',
-                    message: 'Enter your guess:',
+                    message: '💭  Enter your guess:',
                     validate: (input) => {
                         const upperInput = input.trim().toUpperCase();
 
@@ -200,7 +200,7 @@ class WordleGame {
 
             return response.guess;
         } catch (error) {
-            console.log(chalk.yellow('\n\nGame cancelled. Thanks for playing!\n'));
+            console.log(chalk.yellow('\n\n👋  Game cancelled. Thanks for playing!\n'));
             throw error;
         }
     }
@@ -290,7 +290,7 @@ class WordleGame {
             boxen(
                 gradient(['red', 'orange', 'yellow', 'green', 'blue', 'purple'])(figlet.textSync('YOU WON!', { font: 'Standard' })) +
                 '\n\n' +
-                chalk.green.bold(`Congratulations! You guessed it in ${this.attempts.length} ${this.attempts.length === 1 ? 'attempt' : 'attempts'}!`),
+                chalk.green.bold(`🎉  Congratulations! You guessed it in ${this.attempts.length} ${this.attempts.length === 1 ? 'attempt' : 'attempts'}!`),
                 {
                     padding: 1,
                     margin: 1,
@@ -304,9 +304,9 @@ class WordleGame {
     displayLossMessage() {
         console.log(
             boxen(
-                chalk.red.bold('GAME OVER\n\n') +
+                chalk.red.bold('💔  GAME OVER\n\n') +
                 chalk.yellow(`The word was: ${chalk.bold(this.word)}\n`) +
-                chalk.gray('Better luck next time!'),
+                chalk.gray('🔄  Better luck next time!'),
                 {
                     padding: 1,
                     margin: 1,
@@ -336,7 +336,7 @@ class WordleGame {
                 process.exit(0);
             }
         } catch (error) {
-            console.log(chalk.yellow('\n\nThanks for playing!\n'));
+            console.log(chalk.yellow('\n\n👋  Thanks for playing!\n'));
             throw error;
         }
     }
@@ -344,8 +344,8 @@ class WordleGame {
     displayGoodbyeMessage() {
         console.log(
             boxen(
-                chalk.cyan.bold('Thanks for playing Wordle!\n') +
-                chalk.gray('Come back soon!'),
+                chalk.cyan.bold('👋  Thanks for playing Wordle!\n') +
+                chalk.gray('🌟  Come back soon!'),
                 {
                     padding: 1,
                     margin: 1,
@@ -354,6 +354,36 @@ class WordleGame {
                 }
             )
         );
+    }
+
+    async getPlayerModeChoice() {
+        try {
+            const { mode } = await inquirer.prompt([
+                {
+                    type: 'list',
+                    name: 'mode',
+                    message: chalk.bold.cyan('Choose your game mode:'),
+                    choices: [
+                        {
+                            name: chalk.green('Default') + chalk.gray(' (5 letters, 6 attempts)'),
+                            value: 'default'
+                        },
+                        {
+                            name: chalk.yellow('Custom') + chalk.gray(' (choose your settings)'),
+                            value: 'custom'
+                        }
+                    ],
+                    default: 'default',
+                    pageSize: 10
+                }
+            ]);
+
+            return mode;
+
+        } catch (error) {
+            console.log(chalk.yellow('\n\n👋  Game cancelled. See you next time!\n'));
+            throw error;
+        }
     }
 }
 
