@@ -9,6 +9,11 @@ import gradient from 'gradient-string';
 
 class WordleGame {
 
+    async play() {
+        this.displayWelcomeScreen();
+        await this.confirmReady();
+    }
+
     displayWelcomeScreen() {
         process.stdout.write('\x1Bc');
 
@@ -48,8 +53,32 @@ class WordleGame {
         }));
     }
 
-    async play() {
-        this.displayWelcomeScreen();
+    async confirmReady() {
+        try {
+            const { ready } = await inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'ready',
+                    message: 'Ready to play? (y/n)',
+                    validate(input) {
+                        const val = input.trim().toLowerCase();
+                        if (['y', 'yes', 'n', 'no'].includes(val)) return true;
+                        return "Please enter 'y' or 'n'";
+                    }
+                }
+            ]);
+
+            const isReady = ['y', 'yes'].includes(ready.trim().toLowerCase());
+
+            if (!isReady) {
+                console.log(chalk.yellow('\nMaybe next time!\n'));
+                process.exit(0);
+            }
+
+        } catch (error) {
+            console.log(chalk.yellow('\n\nGame cancelled. See you next time!\n'));
+            throw error;
+        }
     }
 }
 
