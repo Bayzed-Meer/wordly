@@ -36,6 +36,8 @@ class WordleGame {
         await this.showLoadingAnimation();
         this.displayBoard();
         await this.runGameLoop();
+        this.displayGameResult();
+        await this.handlePlayAgain();
     }
 
     async runGameLoop() {
@@ -272,6 +274,86 @@ class WordleGame {
         } else {
             checking.stop();
         }
+    }
+
+    displayGameResult() {
+        console.log();
+        if (this.won) {
+            this.displayWinMessage();
+        } else {
+            this.displayLossMessage();
+        }
+    }
+
+    displayWinMessage() {
+        console.log(
+            boxen(
+                gradient(['red', 'orange', 'yellow', 'green', 'blue', 'purple'])(figlet.textSync('YOU WON!', { font: 'Standard' })) +
+                '\n\n' +
+                chalk.green.bold(`Congratulations! You guessed it in ${this.attempts.length} ${this.attempts.length === 1 ? 'attempt' : 'attempts'}!`),
+                {
+                    padding: 1,
+                    margin: 1,
+                    borderStyle: 'double',
+                    borderColor: 'green'
+                }
+            )
+        );
+    }
+
+    displayLossMessage() {
+        console.log(
+            boxen(
+                chalk.red.bold('GAME OVER\n\n') +
+                chalk.yellow(`The word was: ${chalk.bold(this.word)}\n`) +
+                chalk.gray('Better luck next time!'),
+                {
+                    padding: 1,
+                    margin: 1,
+                    borderStyle: 'double',
+                    borderColor: 'red'
+                }
+            )
+        );
+    }
+
+    async handlePlayAgain() {
+        try {
+            const response = await inquirer.prompt([
+                {
+                    type: 'confirm',
+                    name: 'playAgain',
+                    message: 'Would you like to play again?',
+                    default: true
+                }
+            ]);
+
+            if (response.playAgain) {
+                const newGame = new WordleGame();
+                await newGame.play();
+            } else {
+                this.displayGoodbyeMessage();
+                process.exit(0);
+            }
+        } catch (error) {
+            console.log(chalk.yellow('\n\nThanks for playing!\n'));
+            throw error;
+        }
+    }
+
+    displayGoodbyeMessage() {
+        console.log(
+            boxen(
+                chalk.cyan.bold('Thanks for playing Wordle!\n') +
+                chalk.gray('Come back soon!'),
+                {
+                    padding: 1,
+                    margin: 1,
+                    borderStyle: 'round',
+                    borderColor: 'cyan'
+                }
+            )
+        );
     }
 }
 
