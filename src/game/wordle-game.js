@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { DEFAULT_WORD_LENGTH, DEFAULT_MAX_ATTEMPTS, GAME_MODES, LETTER_STATUS } from '../constants.js';
+import { LETTER_STATUS } from '../constants.js';
 import { getRandomWord } from '../wordList.js';
 import {
     displayWelcomeScreen,
@@ -11,44 +11,28 @@ import {
     showCheckingSpinner
 } from '../ui/display.js';
 import {
-    confirmReady,
-    getPlayerModeChoice,
-    getCustomGameSettings,
     getPlayerGuess,
     askPlayAgain
 } from '../ui/prompts.js';
 
 export class WordleGame {
-    constructor() {
-        this.wordLength = DEFAULT_WORD_LENGTH;
-        this.maxAttempts = DEFAULT_MAX_ATTEMPTS;
+    constructor(wordLength, maxAttempts) {
+        this.wordLength = wordLength;
+        this.maxAttempts = maxAttempts;
         this.word = null;
         this.attempts = [];
         this.gameOver = false;
         this.won = false;
-        this.mode = GAME_MODES.DEFAULT;
     }
 
     async play() {
         displayWelcomeScreen();
-        await confirmReady();
-        await this.setupGame();
         this.word = getRandomWord(this.wordLength);
         await showLoadingAnimation();
         displayBoard(this.attempts, this.maxAttempts, this.wordLength);
         await this.runGameLoop();
         this.displayGameResult();
         await this.handlePlayAgain();
-    }
-
-    async setupGame() {
-        this.mode = await getPlayerModeChoice();
-
-        if (this.mode === GAME_MODES.CUSTOM) {
-            const settings = await getCustomGameSettings();
-            this.wordLength = settings.wordLength;
-            this.maxAttempts = settings.maxAttempts;
-        }
     }
 
     async runGameLoop() {
@@ -143,7 +127,7 @@ export class WordleGame {
         const playAgain = await askPlayAgain();
 
         if (playAgain) {
-            const newGame = new WordleGame();
+            const newGame = new WordleGame(this.wordLength, this.maxAttempts);
             await newGame.play();
         } else {
             displayGoodbyeMessage();
