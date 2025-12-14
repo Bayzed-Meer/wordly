@@ -2,6 +2,7 @@ import chalk from 'chalk';
 import boxen from 'boxen';
 import figlet from 'figlet';
 import gradient from 'gradient-string';
+import ora from 'ora';
 
 export function clearScreen() {
     process.stdout.write('\x1Bc');
