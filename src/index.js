@@ -1,10 +1,21 @@
 #!/usr/bin/env node
 
-import { WordleGame } from './game/wordle-game.js';
+import { Command } from 'commander';
+import chalk from 'chalk';
+import { registerCommands } from './commands/index.js';
+import { APP_VERSION } from './constants.js';
 
-try {
-    const game = new WordleGame();
-    await game.play();
-} catch (err) {
-    process.exit(1);
+const program = new Command();
+
+program
+    .name('wordle')
+    .description(chalk.cyan('🎮 Play Wordle in your terminal! Guess the hidden word in a fun, challenging CLI game.'))
+    .version(APP_VERSION, '-v, --version', 'Display version number');
+
+registerCommands(program);
+
+program.parse(process.argv);
+
+if (!process.argv.slice(2).length) {
+    program.outputHelp();
 }
