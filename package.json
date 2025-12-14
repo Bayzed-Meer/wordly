@@ -1,6 +1,6 @@
 {
   "name": "wordly",
-  "version": "0.0.0",
+  "version": "2.0.1",
   "description": "A modern CLI wordle game",
   "type": "module",
   "main": "src/index.js",
@@ -16,7 +16,7 @@
     "game"
   ],
   "private": false,
-  "author": "",
+  "author": "Bayzed Meer",
   "license": "MIT",
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^13.0.1",
@@ -28,6 +28,7 @@
   "dependencies": {
     "boxen": "^8.0.1",
     "chalk": "^5.6.2",
+    "commander": "^14.0.2",
     "figlet": "^1.9.4",
     "gradient-string": "^3.0.0",
     "inquirer": "^12.11.1",
