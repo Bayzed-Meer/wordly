@@ -8,7 +8,7 @@ export async function getPlayerGuess(wordLength) {
                 type: 'input',
                 name: 'guess',
                 message: chalk.cyan('💭  Enter your guess:'),
-                validate: (input) => {
+                validate: input => {
                     const upperInput = input.trim().toUpperCase();
 
                     if (upperInput.length !== wordLength) return `Guess must be exactly ${wordLength} letters`;
@@ -16,7 +16,7 @@ export async function getPlayerGuess(wordLength) {
 
                     return true;
                 },
-                filter: (input) => input.trim().toUpperCase(),
+                filter: input => input.trim().toUpperCase()
             }
         ]);
 
@@ -55,4 +55,3 @@ export async function askPlayAgain() {
         throw error;
     }
 }
-

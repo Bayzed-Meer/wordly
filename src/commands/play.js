@@ -1,15 +1,6 @@
 import { WordleGame } from '../game/wordle-game.js';
-import {
-    DEFAULT_MAX_ATTEMPTS,
-    DEFAULT_WORD_LENGTH,
-    MIN_WORD_LENGTH,
-    MAX_WORD_LENGTH
-} from '../constants.js';
-import {
-    displayInvalidSyntaxError,
-    displayWordLengthError,
-    displayAttemptsError
-} from '../ui/display.js';
+import { DEFAULT_MAX_ATTEMPTS, DEFAULT_WORD_LENGTH, MIN_WORD_LENGTH, MAX_WORD_LENGTH } from '../constants.js';
+import { displayInvalidSyntaxError, displayWordLengthError, displayAttemptsError } from '../ui/display.js';
 
 export async function playCommand(options) {
     try {
@@ -73,7 +64,6 @@ function validateAttempts(attempts) {
     }
 }
 
-
 export default {
     name: 'play',
     description: 'Start a new Wordle game',
@@ -89,4 +79,3 @@ export default {
     ],
     action: playCommand
 };
-
