@@ -9,7 +9,7 @@ const program = new Command();
 
 program
     .name('wordle')
-    .description(chalk.cyan('🎮 Play Wordle in your terminal! Guess the hidden word in a fun, challenging CLI game.'))
+    .description(chalk.cyan('🎮  Play Wordle in your terminal! Guess the hidden word in a fun, challenging CLI game.'))
     .version(APP_VERSION, '-v, --version', 'Display version number');
 
 registerCommands(program);
