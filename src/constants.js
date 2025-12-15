@@ -4,7 +4,7 @@ import { dirname, join } from 'node:path';
 
 export const DEFAULT_WORD_LENGTH = 5;
 export const DEFAULT_MAX_ATTEMPTS = 6;
-export const MIN_WORD_LENGTH = 4;
+export const MIN_WORD_LENGTH = 3;
 export const MAX_WORD_LENGTH = 7;
 
 export const LETTER_STATUS = {
