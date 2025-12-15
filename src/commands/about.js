@@ -6,8 +6,10 @@ export async function aboutCommand() {
     try {
         const aboutText =
             chalk.cyan.bold(`${APP_DESCRIPTION}\n\n`) +
-            chalk.gray('Version: ') + chalk.green(`${APP_VERSION}\n`) +
-            chalk.gray('Author: ') + chalk.green(`${APP_AUTHOR}\n`) +
+            chalk.gray('Version: ') +
+            chalk.green(`${APP_VERSION}\n`) +
+            chalk.gray('Author: ') +
+            chalk.green(`${APP_AUTHOR}\n`) +
             chalk.blue('Report issues and suggest features at: https://github.com/Bayzed-Meer/wordly\n');
 
         console.log(
@@ -39,4 +41,3 @@ export default {
     description: 'Learn about Wordle CLI',
     action: aboutCommand
 };
-
