@@ -1,5 +1,6 @@
 import chalk from 'chalk';
 import inquirer from 'inquirer';
+import { storage } from '../utils/storage.js';
 
 export async function getPlayerGuess(wordLength) {
     try {
@@ -8,7 +9,7 @@ export async function getPlayerGuess(wordLength) {
                 type: 'input',
                 name: 'guess',
                 message: chalk.cyan('💭  Enter your guess:'),
-                validate: (input) => {
+                validate: input => {
                     const upperInput = input.trim().toUpperCase();
 
                     if (upperInput.length !== wordLength) return `Guess must be exactly ${wordLength} letters`;
@@ -16,7 +17,7 @@ export async function getPlayerGuess(wordLength) {
 
                     return true;
                 },
-                filter: (input) => input.trim().toUpperCase(),
+                filter: input => input.trim().toUpperCase()
             }
         ]);
 
@@ -56,3 +57,29 @@ export async function askPlayAgain() {
     }
 }
 
+export async function handleReset() {
+    try {
+        const { resetChoice } = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'resetChoice',
+                message: chalk.yellow('⚠️  Are you sure you want to reset all statistics?'),
+                choices: [
+                    { name: chalk.red('Yes, reset my statistics permanently.'), value: true },
+                    { name: chalk.green('No, keep my statistics.'), value: false }
+                ],
+                default: false
+            }
+        ]);
+
+        if (resetChoice) {
+            storage.resetStats();
+            console.log(chalk.green('\n✅  Statistics reset successfully!\n'));
+        } else {
+            console.log(chalk.gray('\nReset cancelled.\n'));
+        }
+    } catch (error) {
+        console.log(chalk.yellow('\n\nReset cancelled.\n'));
+        throw error;
+    }
+}
