@@ -66,7 +66,7 @@ function validateAttempts(attempts) {
 
 export default {
     name: 'play',
-    description: 'Start a new Wordle game',
+    description: 'Start a new Wordle game (use --help for options: -l/--length, -a/--attempts)',
     options: [
         {
             flags: '-l, --length <number>',
