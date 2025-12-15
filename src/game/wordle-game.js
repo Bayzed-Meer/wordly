@@ -10,10 +10,8 @@ import {
     showLoadingAnimation,
     showCheckingSpinner
 } from '../ui/display.js';
-import {
-    getPlayerGuess,
-    askPlayAgain
-} from '../ui/prompts.js';
+import { getPlayerGuess, askPlayAgain } from '../ui/prompts.js';
+import { storage } from '../utils/storage.js';
 
 export class WordleGame {
     constructor(wordLength, maxAttempts) {
@@ -121,6 +119,12 @@ export class WordleGame {
         } else {
             displayLossMessage(this.word);
         }
+
+        storage.updateStats({
+            won: this.won,
+            attempts: this.attempts.length,
+            wordLength: this.wordLength
+        });
     }
 
     async handlePlayAgain() {
@@ -135,4 +139,3 @@ export class WordleGame {
         }
     }
 }
-
