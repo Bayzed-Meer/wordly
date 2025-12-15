@@ -1,6 +1,6 @@
 {
   "name": "wordly",
-  "version": "2.0.1",
+  "version": "3.2.0",
   "description": "A modern CLI wordle game",
   "type": "module",
   "main": "src/index.js",
