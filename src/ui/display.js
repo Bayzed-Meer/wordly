@@ -4,6 +4,7 @@ import figlet from 'figlet';
 import gradient from 'gradient-string';
 import ora from 'ora';
 import { MIN_WORD_LENGTH, MAX_WORD_LENGTH, DEFAULT_WORD_LENGTH, DEFAULT_MAX_ATTEMPTS } from '../constants.js';
+import { storage } from '../utils/storage.js';
 
 export function clearScreen() {
     process.stdout.write('\x1Bc');
@@ -242,4 +243,6 @@ export function displayStats(stats) {
             borderColor: 'cyan'
         })
     );
+
+    console.log(chalk.dim(`💾  Data stored at: ${storage.getConfigPath()}\n`));
 }

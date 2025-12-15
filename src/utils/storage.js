@@ -79,6 +79,10 @@ class Storage {
     resetStats() {
         this.store.clear();
     }
+
+    getConfigPath() {
+        return this.store.path;
+    }
 }
 
 export const storage = new Storage();
