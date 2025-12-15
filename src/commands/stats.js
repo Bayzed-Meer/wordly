@@ -19,7 +19,7 @@ export async function statsCommand(options) {
 
 export default {
     name: 'stats',
-    description: 'View game statistics',
+    description: 'View game statistics (use --help for options: -r/--reset)',
     options: [
         {
             flags: '-r, --reset',
