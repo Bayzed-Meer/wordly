@@ -21,27 +21,27 @@ Guess the hidden word in limited attempts with colorful feedback and interactive
 
 ### Game Start & Welcome Screen
 
-![Game Welcome Screen](./docs/screenshots/welcome.png)
+![Game Welcome Screen](https://raw.githubusercontent.com/Bayzed-Meer/wordly/main/docs/screenshots/welcome.png)
 
 ### Active Gameplay
 
-![Wordly Gameplay](./docs/screenshots/gameplay.png)
+![Wordly Gameplay](https://raw.githubusercontent.com/Bayzed-Meer/wordly/main/docs/screenshots/gameplay.png)
 
 ### Winning Game
 
-![Game Win Screen](./docs/screenshots/win.png)
+![Game Win Screen](https://raw.githubusercontent.com/Bayzed-Meer/wordly/main/docs/screenshots/win.png)
 
 ### Losing Game
 
-![Game Loss Screen](./docs/screenshots/loss.png)
+![Game Loss Screen](https://raw.githubusercontent.com/Bayzed-Meer/wordly/main/docs/screenshots/loss.png)
 
 ### Statistics View
 
-![Game Statistics](./docs/screenshots/stats.png)
+![Game Statistics](https://raw.githubusercontent.com/Bayzed-Meer/wordly/main/docs/screenshots/stats.png)
 
 ### About Screen
 
-![Help Screen](./docs/screenshots/about.png)
+![Help Screen](https://raw.githubusercontent.com/Bayzed-Meer/wordly/main/docs/screenshots/about.png)
 
 ---
 
