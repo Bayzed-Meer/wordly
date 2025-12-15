@@ -23,6 +23,14 @@
   "private": false,
   "author": "Bayzed Meer",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Bayzed-Meer/wordly.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Bayzed-Meer/wordly/issues"
+  },
+  "homepage": "https://github.com/Bayzed-Meer/wordly#readme",
   "devDependencies": {
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^10.0.1",
